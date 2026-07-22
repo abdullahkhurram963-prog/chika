@@ -578,90 +578,106 @@
   const loadBar      = document.getElementById('load-bar');
   const loadBarWrap  = document.getElementById('load-bar-wrap');
 
-  // ── Preload all frames ──
   const images = [];
-  let loaded = 0;
+  let loadedCount = 0;
+  let currentFrame = 0;
+  let lastDrawnFrame = -1;
 
   function pad(n) { return String(n).padStart(3, '0'); }
 
-  function onLoad() {
-    loaded++;
-    const pct = Math.round((loaded / TOTAL_FRAMES) * 100);
-    loadBar.style.width = pct + '%';
-    if (loaded === TOTAL_FRAMES) {
-      setTimeout(() => { loadBarWrap.style.opacity = '0'; }, 500);
-      drawFrame(0);
+  // Draw specific frame index, or fallback to closest loaded frame
+  function drawFrame(index) {
+    let img = images[index];
+    if (!img || !img.complete) {
+      // Find nearest loaded frame
+      for (let offset = 1; offset < TOTAL_FRAMES; offset++) {
+        const prev = images[index - offset];
+        const next = images[index + offset];
+        if (prev && prev.complete) { img = prev; break; }
+        if (next && next.complete) { img = next; break; }
+      }
     }
-  }
+    if (!img || !img.complete) return;
 
-  for (let i = 1; i <= TOTAL_FRAMES; i++) {
-    const img = new Image();
-    img.src = `frames/ezgif-frame-${pad(i)}.jpg`;
-    img.onload  = onLoad;
-    img.onerror = onLoad;
-    images.push(img);
-  }
-
-  // ── Resize canvas to fill viewport ──
-  function resize() {
     canvas.width  = window.innerWidth;
     canvas.height = window.innerHeight;
-    drawFrame(currentFrame);
-  }
-  window.addEventListener('resize', resize);
-  resize();
 
-  let currentFrame = 0;
-
-  function drawFrame(index) {
-    const img = images[index];
-    if (!img || !img.complete) return;
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    // Cover-fit the image
-    const iw = img.naturalWidth  || canvas.width;
-    const ih = img.naturalHeight || canvas.height;
+    const iw = img.naturalWidth  || 1920;
+    const ih = img.naturalHeight || 1080;
     const scale = Math.max(canvas.width / iw, canvas.height / ih);
     const dw = iw * scale;
     const dh = ih * scale;
     const dx = (canvas.width  - dw) / 2;
     const dy = (canvas.height - dh) / 2;
+
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, dx, dy, dw, dh);
+    lastDrawnFrame = index;
   }
 
-  // ── Scroll handler ──
+  function handleFrameLoad(i) {
+    loadedCount++;
+    const pct = Math.round((loadedCount / TOTAL_FRAMES) * 100);
+    if (loadBar) loadBar.style.width = pct + '%';
+
+    // Draw immediately when first frame loads or if current requested frame loads
+    if (i === 0 || i === currentFrame) {
+      drawFrame(currentFrame);
+    }
+
+    if (loadedCount === TOTAL_FRAMES && loadBarWrap) {
+      setTimeout(() => { loadBarWrap.style.opacity = '0'; }, 300);
+    }
+  }
+
+  // Preload all 147 frames
+  for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    const img = new Image();
+    const idx = i - 1;
+    img.onload  = () => handleFrameLoad(idx);
+    img.onerror = () => handleFrameLoad(idx);
+    img.src = `frames/ezgif-frame-${pad(i)}.jpg`;
+    images.push(img);
+  }
+
+  function resize() {
+    drawFrame(currentFrame);
+  }
+  window.addEventListener('resize', resize);
+
   function onScroll() {
     const heroRect  = hero.getBoundingClientRect();
     const heroH     = hero.offsetHeight;
-    const scrolled  = -heroRect.top;              // px scrolled into section
-    const maxScroll = heroH - window.innerHeight; // total scrollable px
+    const scrolled  = -heroRect.top;
+    const maxScroll = heroH - window.innerHeight;
     const progress  = Math.max(0, Math.min(1, scrolled / maxScroll));
 
-    // Frame index
     const frameIdx = Math.min(
       TOTAL_FRAMES - 1,
       Math.floor(progress * TOTAL_FRAMES)
     );
+
     if (frameIdx !== currentFrame) {
       currentFrame = frameIdx;
       drawFrame(currentFrame);
     }
 
-    // Hide scroll cue after 5% scroll
-    cue.style.opacity = progress > 0.05 ? '0' : '1';
+    if (cue) cue.style.opacity = progress > 0.03 ? '0' : '1';
 
-    // Overlay visibility
-    setOverlay(overlayStart, progress < 0.15);
+    setOverlay(overlayStart, progress < 0.20);
     setOverlay(overlayMid,   progress >= 0.35 && progress < 0.70);
     setOverlay(overlayEnd,   progress >= 0.82);
   }
 
   function setOverlay(el, show) {
-    if (show) { el.classList.add('visible'); }
-    else      { el.classList.remove('visible'); }
+    if (!el) return;
+    if (show) el.classList.add('visible');
+    else      el.classList.remove('visible');
   }
 
   window.addEventListener('scroll', onScroll, { passive: true });
-  onScroll();
+  // Initial render attempt
+  drawFrame(0);
 })();
 </script>
 
