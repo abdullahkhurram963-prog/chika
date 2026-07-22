@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>CHIKA BAN BAN Lemon Drink Mix</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&amp;family=Hanken+Grotesk:ital,wght@0,400;0,600;1,400&amp;family=Space+Grotesk:wght@600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,typography"></script>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-fixed": "#62ff96",
+                "on-secondary-container": "#007237",
+                "inverse-primary": "#dec800",
+                "surface-variant": "#e5e2e1",
+                "surface-tint": "#6a5f00",
+                "error-container": "#ffdad6",
+                "secondary-fixed-dim": "#00e475",
+                "on-tertiary-container": "#ab4700",
+                "on-secondary": "#ffffff",
+                "inverse-on-surface": "#f3f0ef",
+                "on-secondary-fixed": "#00210b",
+                "on-tertiary-fixed-variant": "#7a3000",
+                "on-surface": "#1c1b1b",
+                "on-primary-fixed": "#201c00",
+                "on-primary-fixed-variant": "#504700",
+                "surface-bright": "#fcf9f8",
+                "primary-fixed": "#fde400",
+                "background": "#fcf9f8",
+                "on-primary": "#ffffff",
+                "on-error": "#ffffff",
+                "tertiary-container": "#ffded0",
+                "surface-container-lowest": "#ffffff",
+                "outline-variant": "#cdc7aa",
+                "secondary": "#006d35",
+                "outline": "#7c775f",
+                "surface-container-high": "#ebe7e7",
+                "on-surface-variant": "#4b4731",
+                "on-error-container": "#93000a",
+                "primary": "#6a5f00",
+                "surface": "#fcf9f8",
+                "tertiary-fixed-dim": "#ffb692",
+                "primary-fixed-dim": "#dec800",
+                "surface-dim": "#dcd9d9",
+                "on-tertiary-fixed": "#341100",
+                "on-tertiary": "#ffffff",
+                "on-secondary-fixed-variant": "#005226",
+                "on-primary-container": "#726600",
+                "tertiary": "#9f4200",
+                "surface-container": "#f0edec",
+                "inverse-surface": "#313030",
+                "on-background": "#1c1b1b",
+                "primary-container": "#ffe600",
+                "surface-container-low": "#f6f3f2",
+                "error": "#ba1a1a",
+                "secondary-container": "#3fff8b",
+                "surface-container-highest": "#e5e2e1",
+                "tertiary-fixed": "#ffdbcb"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.125rem",
+                "lg": "0.25rem",
+                "xl": "0.5rem",
+                "full": "0.75rem"
+        },
+        "spacing": {
+                "border-width": "3px",
+                "base-unit": "8px",
+                "margin-mobile": "16px",
+                "margin-desktop": "48px",
+                "gutter": "24px"
+        },
+        "fontFamily": {
+                "body-md": [
+                        "Hanken Grotesk"
+                ],
+                "label-sm": [
+                        "Space Grotesk"
+                ],
+                "display-lg": [
+                        "Bricolage Grotesque"
+                ],
+                "headline-lg": [
+                        "Bricolage Grotesque"
+                ],
+                "headline-lg-mobile": [
+                        "Bricolage Grotesque"
+                ]
+        },
+        "fontSize": {
+                "body-md": [
+                        "18px",
+                        {
+                                "lineHeight": "1.6",
+                                "fontWeight": "400"
+                        }
+                ],
+                "label-sm": [
+                        "14px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "0.05em",
+                                "fontWeight": "600"
+                        }
+                ],
+                "display-lg": [
+                        "72px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.04em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "headline-lg": [
+                        "48px",
+                        {
+                                "lineHeight": "1.2",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "32px",
+                        {
+                                "lineHeight": "1.2",
+                                "fontWeight": "800"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            font-family: 'Hanken Grotesk', sans-serif;
+        }
+        h1, h2, h3, h4, h5, h6, .font-display {
+            font-family: 'Bricolage Grotesque', sans-serif;
+        }
+        .label-text {
+            font-family: 'Space Grotesk', sans-serif;
+        }
+        .blob-bg {
+            position: absolute;
+            z-index: -1;
+            filter: blur(80px);
+            opacity: 0.5;
+            border-radius: 50%;
+        }
+
+        /* ── Scroll Animation Hero ── */
+        #scroll-hero {
+            position: relative;
+            height: 600vh; /* scroll distance = 6x viewport */
+        }
+        #sticky-frame {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #f5d000;
+        }
+        #hero-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Nav overlay on top of canvas */
+        #hero-nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+        }
+        /* Text overlays */
+        .hero-text-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 20px;
+        }
+        .hero-text-overlay.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #overlay-start .badge {
+            display: inline-block;
+            background: #006d35;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        #overlay-start h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #1c1b1b;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.12);
+            margin-bottom: 16px;
+        }
+        #overlay-start h1 span { color: #006d35; }
+        #overlay-start p {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #1c1b1b;
+            max-width: 520px;
+            line-height: 1.6;
+            text-shadow: 0 1px 8px rgba(255,255,255,0.6);
+        }
+        #overlay-mid h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        #overlay-mid p {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        #overlay-end h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        #overlay-end p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        /* Scroll cue arrow */
+        #scroll-cue {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 1.8s infinite;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+        #scroll-cue span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #1c1b1b;
+        }
+        #scroll-cue svg { color: #1c1b1b; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(8px); }
+        }
+        /* Loading bar */
+        #load-bar-wrap {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: rgba(0,0,0,0.08);
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        #load-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #006d35, #fde400);
+            width: 0%;
+            transition: width 0.2s;
+        }
+    </style>
+</head>
+<!-- Loading bar -->
+<div id="load-bar-wrap"><div id="load-bar"></div></div>
+
+<body class="bg-surface text-on-surface overflow-x-hidden transition-colors duration-300">
+
+<!-- ══ SCROLL ANIMATION HERO ══ -->
+<section id="scroll-hero">
+  <div id="sticky-frame">
+
+    <!-- Nav overlaid on canvas -->
+    <nav id="hero-nav">
+      <a class="text-2xl font-display font-extrabold tracking-tight drop-shadow-md" href="#"
+         style="font-family:'Bricolage Grotesque',sans-serif; color:#1c1b1b;">
+        CHIKA BAN BAN
+      </a>
+      <div style="display:flex;gap:32px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">
+        <a href="#about"   style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">About</a>
+        <a href="#how-to"  style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">How to Mix</a>
+        <a href="#flavors" style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">Flavors</a>
+      </div>
+    </nav>
+
+    <!-- Canvas frame player -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Overlay 1: shown at start (frames 1-20) -->
+    <div class="hero-text-overlay visible" id="overlay-start">
+      <div class="badge">✨ New Lemon Flavor</div>
+      <h1>Pure Citrus<br><span>Joy in Every Sip.</span></h1>
+      <p>Turn just 5g into a massive 2L of refreshing,<br>zesty lemon goodness. Perfect for the whole family.</p>
+    </div>
+
+    <!-- Overlay 2: shown mid animation (frames 50-100) -->
+    <div class="hero-text-overlay" id="overlay-mid">
+      <h2>Watch the Magic Happen 🍋</h2>
+      <p>One tiny packet. One big burst of flavour.</p>
+    </div>
+
+    <!-- Overlay 3: shown at end (frames 120-147) -->
+    <div class="hero-text-overlay" id="overlay-end">
+      <h2>CHIKA BAN BAN Lemon 💛</h2>
+      <p>Makes 2 Litres &bull; 5g &bull; Sugar-Free Energy</p>
+    </div>
+
+    <!-- Scroll cue -->
+    <div id="scroll-cue">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+
+  </div>
+</section>
+<section class="py-20 relative z-10 bg-primary-container text-on-primary-container" id="about">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display mb-4">Why Choose Chika Ban Ban?</h2>
+<p class="text-body-md">Small packet. Huge flavor. Unbeatable value.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface p-8 rounded-xl shadow-lg border-border-width border-outline-variant text-center hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 mx-auto bg-primary text-on-primary rounded-full flex items-center justify-center mb-6">
+<span class="material-icons text-3xl">water_drop</span>
+</div>
+<h3 class="text-2xl font-display font-bold mb-3 text-on-surface">Makes 2 Liters</h3>
+<p class="text-body-md text-on-surface-variant">Just one tiny 5g packet is all you need to make a full 2 liters of delicious drink.</p>
+</div>
+<div class="bg-surface p-8 rounded-xl shadow-lg border-border-width border-outline-variant text-center hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 mx-auto bg-secondary text-on-secondary rounded-full flex items-center justify-center mb-6">
+<span class="material-icons text-3xl">local_florist</span>
+</div>
+<h3 class="text-2xl font-display font-bold mb-3 text-on-surface">Bursting Flavor</h3>
+<p class="text-body-md text-on-surface-variant">Experience the intense, authentic taste of real lemons with every refreshing sip.</p>
+</div>
+<div class="bg-surface p-8 rounded-xl shadow-lg border-border-width border-outline-variant text-center hover:-translate-y-2 transition-transform">
+<div class="w-16 h-16 mx-auto bg-tertiary text-on-tertiary rounded-full flex items-center justify-center mb-6">
+<span class="material-icons text-3xl">bolt</span>
+</div>
+<h3 class="text-2xl font-display font-bold mb-3 text-on-surface">Sugar-Free Energy</h3>
+<p class="text-body-md text-on-surface-variant">Enjoy guilt-free hydration. All the vibrant taste without the added sugar.</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 bg-surface-container-low" id="flavor-profile">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop flex flex-col-reverse md:flex-row items-center gap-gutter">
+<div class="md:w-1/2 space-y-6">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display text-on-surface">Zesty Flavor Profile</h2>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                Experience the perfect balance of sweet and tart. Our lemon mix delivers an authentic, mouth-watering citrus punch that dances on your taste buds.
+            </p>
+<ul class="space-y-4">
+<li class="flex items-center space-x-3">
+<span class="material-icons text-secondary">check_circle</span>
+<span class="text-body-md text-on-surface font-medium">Packed with Vitamin C</span>
+</li>
+<li class="flex items-center space-x-3">
+<span class="material-icons text-secondary">check_circle</span>
+<span class="text-body-md text-on-surface font-medium">100% Sugar-Free</span>
+</li>
+<li class="flex items-center space-x-3">
+<span class="material-icons text-secondary">check_circle</span>
+<span class="text-body-md text-on-surface font-medium">Ultra-Refreshing Crispness</span>
+</li>
+</ul>
+</div>
+<div class="md:w-1/2">
+<img alt="Lemon slices splashing into water" class="rounded-xl shadow-2xl w-full object-cover h-[400px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD6swGB6VkXFLTZ7ai6WZUaSkZ8OHNG0mFRbFbS8E2llK9im4X4XBpgGGNYEciFesFgLG36BV23W2ACsSrN0_CL39WJ2-gQu6Qy0lVgdBnuni7xwMqHpyOl9wdfqYwTSsRZguXREUV18KhRD_xkFdhpcAtlrjk4BYQ0O3tKUHn3ZrVEDDn3IgqXP9N-E8bsrtdMFP4ypIYJEwoD4j-TTsm6RjYmfAhp5qhCRjprhHI3JtyEcgS55i8"/>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 bg-secondary-container text-on-secondary-container" id="how-to">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display mb-4">As Easy As 1-2-3</h2>
+<p class="text-body-md">Get your lemonade ready in seconds.</p>
+</div>
+<div class="flex flex-col md:flex-row justify-center items-center gap-gutter max-w-4xl mx-auto relative">
+<div class="hidden md:block absolute top-1/2 left-0 w-full h-2 bg-on-secondary-container -z-10 transform -translate-y-1/2 rounded-full opacity-20"></div>
+<div class="flex flex-col items-center bg-surface p-6 rounded-xl shadow-md z-10 w-64 border-border-width border-primary">
+<div class="w-20 h-20 bg-primary text-on-primary rounded-full flex items-center justify-center font-bold text-3xl mb-4 shadow-inner">
+<span class="material-icons">exit_to_app</span>
+</div>
+<h4 class="text-xl font-display font-bold mb-2 text-on-surface">1. Pour</h4>
+<p class="text-center text-body-md text-on-surface-variant">Empty the 5g packet into a pitcher.</p>
+</div>
+<div class="flex flex-col items-center bg-surface p-6 rounded-xl shadow-md z-10 w-64 border-border-width border-secondary">
+<div class="w-20 h-20 bg-secondary text-on-secondary rounded-full flex items-center justify-center font-bold text-3xl mb-4 shadow-inner">
+<span class="material-icons">opacity</span>
+</div>
+<h4 class="text-xl font-display font-bold mb-2 text-on-surface">2. Add Water</h4>
+<p class="text-center text-body-md text-on-surface-variant">Pour in 2 liters of cold, fresh water.</p>
+</div>
+<div class="flex flex-col items-center bg-surface p-6 rounded-xl shadow-md z-10 w-64 border-border-width border-tertiary">
+<div class="w-20 h-20 bg-tertiary text-on-tertiary rounded-full flex items-center justify-center font-bold text-3xl mb-4 shadow-inner">
+<span class="material-icons">emoji_food_beverage</span>
+</div>
+<h4 class="text-xl font-display font-bold mb-2 text-on-surface">3. Stir &amp; Enjoy</h4>
+<p class="text-center text-body-md text-on-surface-variant">Mix well, add ice, and savor the flavor!</p>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-surface-container relative z-10" id="flavors">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="bg-surface rounded-xl shadow-2xl overflow-hidden flex flex-col md:flex-row border-border-width border-outline-variant">
+<div class="md:w-1/2 p-12 flex flex-col justify-center bg-tertiary-container text-on-tertiary-container">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display mb-6">Refresh Your Day.</h2>
+<p class="text-body-md mb-8 leading-relaxed">
+                        Whether you're hosting a party, packing lunches, or just need a cool drink on a hot afternoon, Chika Ban Ban Lemon is the perfect companion. The smiling packet guarantees a smile on your face.
+                    </p>
+<div class="bg-surface/50 p-6 rounded-xl mb-8 border-border-width border-on-tertiary-container/20">
+<div class="flex items-center justify-between mb-4">
+<span class="font-display font-bold text-xl">Perfect for Sharing</span>
+</div>
+</div>
+</div>
+<div class="md:w-1/2 bg-primary-container p-12 flex justify-center items-center relative overflow-hidden">
+<div class="absolute inset-0 opacity-20" style="background-image: radial-gradient(var(--tw-colors-on-primary-container) 2px, transparent 2px); background-size: 30px 30px;"></div>
+<img alt="CHIKA BAN BAN Lemon Drink Mix Packet beside a glass" class="relative z-10 w-2/3 max-w-sm drop-shadow-xl transform rotate-6 hover:rotate-0 transition-transform duration-300" src="product.png"/>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 bg-surface text-on-surface" id="testimonials">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display mb-4">What Our Fans Say</h2>
+<p class="text-body-md text-on-surface-variant">Join the refreshing revolution.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container-low p-8 rounded-xl shadow-lg border-border-width border-outline-variant hover:-translate-y-2 transition-transform">
+<div class="flex text-primary mb-4">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span>
+</div>
+<p class="text-body-md text-on-surface-variant italic mb-6">"Absolutely love the flavor! It's so crisp and truly tastes like freshly squeezed lemons. Plus, it's sugar-free!"</p>
+<div class="font-display font-bold text-on-surface">- Sarah T.</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl shadow-lg border-border-width border-outline-variant hover:-translate-y-2 transition-transform">
+<div class="flex text-primary mb-4">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span>
+</div>
+<p class="text-body-md text-on-surface-variant italic mb-6">"I can't believe one tiny packet makes 2 liters. It's the best value for our family picnics and get-togethers."</p>
+<div class="font-display font-bold text-on-surface">- Mark L.</div>
+</div>
+<div class="bg-surface-container-low p-8 rounded-xl shadow-lg border-border-width border-outline-variant hover:-translate-y-2 transition-transform">
+<div class="flex text-primary mb-4">
+<span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span><span class="material-icons">star</span>
+</div>
+<p class="text-body-md text-on-surface-variant italic mb-6">"My daily go-to drink. It gives me the energetic boost I need in the afternoon without any guilt."</p>
+<div class="font-display font-bold text-on-surface">- Emily R.</div>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 bg-primary-container text-on-primary-container relative z-10" id="gallery">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="text-center mb-16">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display mb-4">Live the Lemon Life</h2>
+<p class="text-body-md">Pure zest in every moment.</p>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-gutter">
+<div class="overflow-hidden rounded-xl shadow-xl group border-border-width border-primary">
+<img alt="Iced lemonade on a table" class="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDf9A1ZYe28WN42_XG-5wkJUxzeiOSrvGca4gFvjb31aVd2j72j1PYngrt5gMEV0rMTiimLEQAElc25QvXVqEIZekLlNznxYHYGHVXc932Rs2TtS0BzTM38qp0xKAAC9l6DEQi0tC5rMJrSwjVax50BrVinfpQoi3iU_g4Zzk9NEE2hr4X-jEr1owrK9kBsRHcadlmCvyIAG2t9VPLCCsRk47M3T3De1NYMkecBOjeJf7sD3oDo0xo"/>
+</div>
+<div class="overflow-hidden rounded-xl shadow-xl group border-border-width border-primary">
+<img alt="Lemon drink mix flat lay" class="w-full h-[500px] object-cover transform group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAncOwm45NNr_n4_yS968pO5D94NwEJdlpJaWZGQaV5IxHHp9Z4feO2qW4i_WlfmX3s296WGFSvjvNR2EKqqNeDnv4m6FO9fuyQUq4GIdn58XjgmNMd9PWTFxC-illQexCDYHra4v-KyHiy4d61w9rD2rVVtkC_TLoRG7dsqJXKy4ifEMX0CI2OSymUrhswhWWqy7g0VVuI0s2o_e3sjhglhQXvo8njKaX931cSoqOmZdOpovYAXfs"/>
+</div>
+</div>
+</div>
+</section>
+<section class="py-24 relative z-10 bg-surface" id="our-story">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row items-center gap-gutter">
+<div class="md:w-1/2">
+<img alt="Friends enjoying lemonade in a park" class="rounded-xl shadow-2xl w-full object-cover h-[400px]" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDtO60Pb97LmP6KypvU5d8f9ZQxugoL_DCbbn4-KHw5VKskOlYhRDgtd_WgBMZR-6OEHYMO1Ap1pcZLGJtGng5E9Ev0gHv3tCB-CZJJ2_erN_4_yGPWF5QKmBLERorljsJHbKXeTltQQUBNeQkWYqUjeerZj9xuw5f1wFNy3PA1nEoE-_WoXb6a5C4DVXyOwmdNgMmkbAOMRFXywjaUJAZPU-PgfUa_FZvvxGBUI5ZnCZ4_T7J9lsU"/>
+</div>
+<div class="md:w-1/2 space-y-6">
+<h2 class="text-headline-lg-mobile md:text-headline-lg font-display text-on-surface">Our Story</h2>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                We believe that great taste shouldn't be complicated or expensive. Chika Ban Ban started with a simple mission: to bring joy and refreshment to every household with a product that's both delicious and affordable. 
+            </p>
+<p class="text-body-md text-on-surface-variant leading-relaxed">
+                Our vibrant lemon mix is designed for sharing—whether you're at a sunny park picnic or just unwinding at home, every sip is crafted to spark a smile.
+            </p>
+</div>
+</div>
+</section><footer class="bg-secondary text-on-secondary pt-16 pb-8 relative z-10">
+<div class="container mx-auto px-margin-mobile md:px-margin-desktop">
+<div class="flex flex-col md:flex-row justify-between items-center mb-12 border-b border-on-secondary/20 pb-12">
+<div class="mb-8 md:mb-0 text-center md:text-left">
+<h2 class="text-headline-lg-mobile font-display mb-2 text-primary-fixed drop-shadow">CHIKA BAN BAN</h2>
+<p class="text-on-secondary/80 font-medium text-body-md">Spreading smiles, one sip at a time.</p>
+</div>
+<div class="flex space-x-6">
+<a class="w-12 h-12 bg-on-secondary/10 hover:bg-on-secondary/30 rounded-full flex items-center justify-center transition-colors text-on-secondary" href="#">
+<span class="material-icons">facebook</span>
+</a>
+<a class="w-12 h-12 bg-on-secondary/10 hover:bg-on-secondary/30 rounded-full flex items-center justify-center transition-colors text-on-secondary" href="#">
+<span class="material-icons">photo_camera</span>
+</a>
+<a class="w-12 h-12 bg-on-secondary/10 hover:bg-on-secondary/30 rounded-full flex items-center justify-center transition-colors text-on-secondary" href="#">
+<span class="material-icons">mail</span>
+</a>
+</div>
+</div>
+<div class="text-center text-on-secondary/60 text-sm flex flex-col md:flex-row justify-between items-center label-text">
+<p>© 2023 Chika Ban Ban. All rights reserved.</p>
+<div class="space-x-4 mt-4 md:mt-0">
+<a class="hover:text-on-secondary transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-on-secondary transition-colors" href="#">Terms of Service</a>
+</div>
+</div>
+</div>
+</footer>
+
+<script>
+(function () {
+  const TOTAL_FRAMES = 147;
+  const canvas  = document.getElementById('hero-canvas');
+  const ctx     = canvas.getContext('2d');
+  const hero    = document.getElementById('scroll-hero');
+  const cue     = document.getElementById('scroll-cue');
+  const overlayStart = document.getElementById('overlay-start');
+  const overlayMid   = document.getElementById('overlay-mid');
+  const overlayEnd   = document.getElementById('overlay-end');
+  const loadBar      = document.getElementById('load-bar');
+  const loadBarWrap  = document.getElementById('load-bar-wrap');
+
+  // ── Preload all frames ──
+  const images = [];
+  let loaded = 0;
+
+  function pad(n) { return String(n).padStart(3, '0'); }
+
+  function onLoad() {
+    loaded++;
+    const pct = Math.round((loaded / TOTAL_FRAMES) * 100);
+    loadBar.style.width = pct + '%';
+    if (loaded === TOTAL_FRAMES) {
+      setTimeout(() => { loadBarWrap.style.opacity = '0'; }, 500);
+      drawFrame(0);
+    }
+  }
+
+  for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    const img = new Image();
+    img.src = `frames/ezgif-frame-${pad(i)}.jpg`;
+    img.onload  = onLoad;
+    img.onerror = onLoad;
+    images.push(img);
+  }
+
+  // ── Resize canvas to fill viewport ──
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drawFrame(currentFrame);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let currentFrame = 0;
+
+  function drawFrame(index) {
+    const img = images[index];
+    if (!img || !img.complete) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Cover-fit the image
+    const iw = img.naturalWidth  || canvas.width;
+    const ih = img.naturalHeight || canvas.height;
+    const scale = Math.max(canvas.width / iw, canvas.height / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (canvas.width  - dw) / 2;
+    const dy = (canvas.height - dh) / 2;
+    ctx.drawImage(img, dx, dy, dw, dh);
+  }
+
+  // ── Scroll handler ──
+  function onScroll() {
+    const heroRect  = hero.getBoundingClientRect();
+    const heroH     = hero.offsetHeight;
+    const scrolled  = -heroRect.top;              // px scrolled into section
+    const maxScroll = heroH - window.innerHeight; // total scrollable px
+    const progress  = Math.max(0, Math.min(1, scrolled / maxScroll));
+
+    // Frame index
+    const frameIdx = Math.min(
+      TOTAL_FRAMES - 1,
+      Math.floor(progress * TOTAL_FRAMES)
+    );
+    if (frameIdx !== currentFrame) {
+      currentFrame = frameIdx;
+      drawFrame(currentFrame);
+    }
+
+    // Hide scroll cue after 5% scroll
+    cue.style.opacity = progress > 0.05 ? '0' : '1';
+
+    // Overlay visibility
+    setOverlay(overlayStart, progress < 0.15);
+    setOverlay(overlayMid,   progress >= 0.35 && progress < 0.70);
+    setOverlay(overlayEnd,   progress >= 0.82);
+  }
+
+  function setOverlay(el, show) {
+    if (show) { el.classList.add('visible'); }
+    else      { el.classList.remove('visible'); }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
+</body></html>
