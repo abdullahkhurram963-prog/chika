@@ -154,40 +154,215 @@
             opacity: 0.5;
             border-radius: 50%;
         }
+
+        /* ── Scroll Animation Hero ── */
+        #scroll-hero {
+            position: relative;
+            height: 600vh; /* scroll distance = 6x viewport */
+        }
+        #sticky-frame {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            overflow: hidden;
+            background: #f5d000;
+        }
+        #hero-canvas {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+        /* Nav overlay on top of canvas */
+        #hero-nav {
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            z-index: 20;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+        }
+        /* Text overlays */
+        .hero-text-overlay {
+            position: absolute;
+            inset: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+            pointer-events: none;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            padding: 20px;
+        }
+        .hero-text-overlay.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        #overlay-start .badge {
+            display: inline-block;
+            background: #006d35;
+            color: #fff;
+            font-family: 'Space Grotesk', sans-serif;
+            font-weight: 700;
+            font-size: 13px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 8px 20px;
+            border-radius: 999px;
+            margin-bottom: 20px;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+        #overlay-start h1 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2.4rem, 6vw, 5rem);
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -0.03em;
+            color: #1c1b1b;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.12);
+            margin-bottom: 16px;
+        }
+        #overlay-start h1 span { color: #006d35; }
+        #overlay-start p {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 1.15rem;
+            color: #1c1b1b;
+            max-width: 520px;
+            line-height: 1.6;
+            text-shadow: 0 1px 8px rgba(255,255,255,0.6);
+        }
+        #overlay-mid h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 24px rgba(0,0,0,0.35);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        #overlay-mid p {
+            font-family: 'Hanken Grotesk', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        #overlay-end h2 {
+            font-family: 'Bricolage Grotesque', sans-serif;
+            font-size: clamp(2rem, 5vw, 4rem);
+            font-weight: 800;
+            color: #fff;
+            text-shadow: 0 4px 24px rgba(0,0,0,0.4);
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+        #overlay-end p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.9);
+            text-shadow: 0 2px 12px rgba(0,0,0,0.3);
+        }
+        /* Scroll cue arrow */
+        #scroll-cue {
+            position: absolute;
+            bottom: 32px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 15;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+            animation: bounce 1.8s infinite;
+            opacity: 1;
+            transition: opacity 0.4s;
+        }
+        #scroll-cue span {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: #1c1b1b;
+        }
+        #scroll-cue svg { color: #1c1b1b; }
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50%       { transform: translateX(-50%) translateY(8px); }
+        }
+        /* Loading bar */
+        #load-bar-wrap {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            height: 4px;
+            background: rgba(0,0,0,0.08);
+            z-index: 9999;
+            transition: opacity 0.5s;
+        }
+        #load-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #006d35, #fde400);
+            width: 0%;
+            transition: width 0.2s;
+        }
     </style>
 </head>
+<!-- Loading bar -->
+<div id="load-bar-wrap"><div id="load-bar"></div></div>
+
 <body class="bg-surface text-on-surface overflow-x-hidden transition-colors duration-300">
-<div class="blob-bg w-[500px] h-[500px] bg-primary-fixed top-[-100px] left-[-200px] dark:opacity-30"></div>
-<div class="blob-bg w-[400px] h-[400px] bg-secondary-container top-[20%] right-[-150px] dark:opacity-30"></div>
-<div class="blob-bg w-[600px] h-[600px] bg-tertiary-container bottom-[-200px] left-[10%] dark:opacity-30"></div>
-<nav class="container mx-auto px-margin-mobile md:px-margin-desktop py-6 flex justify-between items-center relative z-10">
-<a class="text-3xl font-display font-extrabold tracking-tight text-primary drop-shadow-md" href="#">
-            CHIKA BAN BAN
-        </a>
-<div class="hidden md:flex space-x-8 font-semibold label-text text-label-sm">
-<a class="hover:text-primary transition-colors text-on-surface" href="#about">About</a>
-<a class="hover:text-primary transition-colors text-on-surface" href="#how-to">How to Mix</a>
-<a class="hover:text-primary transition-colors text-on-surface" href="#flavors">Flavors</a>
-</div>
-</nav>
-<header class="container mx-auto px-margin-mobile md:px-margin-desktop py-12 md:py-24 flex flex-col md:flex-row items-center relative z-10">
-<div class="md:w-1/2 space-y-6 text-center md:text-left mb-12 md:mb-0">
-<span class="inline-block px-4 py-2 bg-secondary-container text-on-secondary-container rounded-full font-bold uppercase tracking-wider text-sm mb-4 border border-secondary/30 label-text">
-                New Lemon Flavor
-            </span>
-<h1 class="text-headline-lg-mobile md:text-display-lg font-display text-on-surface">
-                Pure Citrus <br/>
-<span class="text-primary drop-shadow-sm">Joy in Every Sip.</span>
-</h1>
-<p class="text-body-md text-on-surface-variant max-w-lg mx-auto md:mx-0">
-                Turn just 5g into a massive 2L of refreshing, zesty lemon goodness. Perfect for the whole family.
-            </p>
-</div>
-<div class="md:w-1/2 flex justify-center relative">
-<div class="absolute inset-0 bg-gradient-to-tr from-primary-fixed/60 to-secondary-fixed/60 rounded-full blur-3xl transform scale-75 z-0"></div>
-<img alt="CHIKA BAN BAN Lemon Mix Packet" class="relative z-10 w-full max-w-md drop-shadow-2xl hover:-translate-y-4 transition-transform duration-500 ease-out" src="product.png"/>
-</div>
-</header>
+
+<!-- ══ SCROLL ANIMATION HERO ══ -->
+<section id="scroll-hero">
+  <div id="sticky-frame">
+
+    <!-- Nav overlaid on canvas -->
+    <nav id="hero-nav">
+      <a class="text-2xl font-display font-extrabold tracking-tight drop-shadow-md" href="#"
+         style="font-family:'Bricolage Grotesque',sans-serif; color:#1c1b1b;">
+        CHIKA BAN BAN
+      </a>
+      <div style="display:flex;gap:32px;font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:14px;">
+        <a href="#about"   style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">About</a>
+        <a href="#how-to"  style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">How to Mix</a>
+        <a href="#flavors" style="color:#1c1b1b;text-decoration:none;" onmouseover="this.style.color='#006d35'" onmouseout="this.style.color='#1c1b1b'">Flavors</a>
+      </div>
+    </nav>
+
+    <!-- Canvas frame player -->
+    <canvas id="hero-canvas"></canvas>
+
+    <!-- Overlay 1: shown at start (frames 1-20) -->
+    <div class="hero-text-overlay visible" id="overlay-start">
+      <div class="badge">✨ New Lemon Flavor</div>
+      <h1>Pure Citrus<br><span>Joy in Every Sip.</span></h1>
+      <p>Turn just 5g into a massive 2L of refreshing,<br>zesty lemon goodness. Perfect for the whole family.</p>
+    </div>
+
+    <!-- Overlay 2: shown mid animation (frames 50-100) -->
+    <div class="hero-text-overlay" id="overlay-mid">
+      <h2>Watch the Magic Happen 🍋</h2>
+      <p>One tiny packet. One big burst of flavour.</p>
+    </div>
+
+    <!-- Overlay 3: shown at end (frames 120-147) -->
+    <div class="hero-text-overlay" id="overlay-end">
+      <h2>CHIKA BAN BAN Lemon 💛</h2>
+      <p>Makes 2 Litres &bull; 5g &bull; Sugar-Free Energy</p>
+    </div>
+
+    <!-- Scroll cue -->
+    <div id="scroll-cue">
+      <span>Scroll</span>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+
+  </div>
+</section>
 <section class="py-20 relative z-10 bg-primary-container text-on-primary-container" id="about">
 <div class="container mx-auto px-margin-mobile md:px-margin-desktop">
 <div class="text-center mb-16">
@@ -389,4 +564,105 @@
 </div>
 </div>
 </footer>
+
+<script>
+(function () {
+  const TOTAL_FRAMES = 147;
+  const canvas  = document.getElementById('hero-canvas');
+  const ctx     = canvas.getContext('2d');
+  const hero    = document.getElementById('scroll-hero');
+  const cue     = document.getElementById('scroll-cue');
+  const overlayStart = document.getElementById('overlay-start');
+  const overlayMid   = document.getElementById('overlay-mid');
+  const overlayEnd   = document.getElementById('overlay-end');
+  const loadBar      = document.getElementById('load-bar');
+  const loadBarWrap  = document.getElementById('load-bar-wrap');
+
+  // ── Preload all frames ──
+  const images = [];
+  let loaded = 0;
+
+  function pad(n) { return String(n).padStart(3, '0'); }
+
+  function onLoad() {
+    loaded++;
+    const pct = Math.round((loaded / TOTAL_FRAMES) * 100);
+    loadBar.style.width = pct + '%';
+    if (loaded === TOTAL_FRAMES) {
+      setTimeout(() => { loadBarWrap.style.opacity = '0'; }, 500);
+      drawFrame(0);
+    }
+  }
+
+  for (let i = 1; i <= TOTAL_FRAMES; i++) {
+    const img = new Image();
+    img.src = `frames/ezgif-frame-${pad(i)}.jpg`;
+    img.onload  = onLoad;
+    img.onerror = onLoad;
+    images.push(img);
+  }
+
+  // ── Resize canvas to fill viewport ──
+  function resize() {
+    canvas.width  = window.innerWidth;
+    canvas.height = window.innerHeight;
+    drawFrame(currentFrame);
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  let currentFrame = 0;
+
+  function drawFrame(index) {
+    const img = images[index];
+    if (!img || !img.complete) return;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    // Cover-fit the image
+    const iw = img.naturalWidth  || canvas.width;
+    const ih = img.naturalHeight || canvas.height;
+    const scale = Math.max(canvas.width / iw, canvas.height / ih);
+    const dw = iw * scale;
+    const dh = ih * scale;
+    const dx = (canvas.width  - dw) / 2;
+    const dy = (canvas.height - dh) / 2;
+    ctx.drawImage(img, dx, dy, dw, dh);
+  }
+
+  // ── Scroll handler ──
+  function onScroll() {
+    const heroRect  = hero.getBoundingClientRect();
+    const heroH     = hero.offsetHeight;
+    const scrolled  = -heroRect.top;              // px scrolled into section
+    const maxScroll = heroH - window.innerHeight; // total scrollable px
+    const progress  = Math.max(0, Math.min(1, scrolled / maxScroll));
+
+    // Frame index
+    const frameIdx = Math.min(
+      TOTAL_FRAMES - 1,
+      Math.floor(progress * TOTAL_FRAMES)
+    );
+    if (frameIdx !== currentFrame) {
+      currentFrame = frameIdx;
+      drawFrame(currentFrame);
+    }
+
+    // Hide scroll cue after 5% scroll
+    cue.style.opacity = progress > 0.05 ? '0' : '1';
+
+    // Overlay visibility
+    setOverlay(overlayStart, progress < 0.15);
+    setOverlay(overlayMid,   progress >= 0.35 && progress < 0.70);
+    setOverlay(overlayEnd,   progress >= 0.82);
+  }
+
+  function setOverlay(el, show) {
+    if (show) { el.classList.add('visible'); }
+    else      { el.classList.remove('visible'); }
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+
 </body></html>
